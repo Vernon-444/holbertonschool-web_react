@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/holberton-logo.jpg";
+import logo from '/src/assets/Holberton_Logo.jpg';
 import "./Header.css";
 
 function Header() {
