@@ -26,6 +26,8 @@ class AppClass extends Component {
     // Initialize state if needed
   }
 
+    // Add your component's methods and lifecycle methods here
+
   render() {
     const { isLoggedIn } = this.props;
 
