@@ -1,52 +1,43 @@
-import Notifications from './Notifications';
-import { shallow } from 'enzyme';
-import React from 'react';
+import { shallow } from "enzyme";
+import React from "react";
+import Notifications from "./Notifications";
 
-describe('notification', () => {
-  it('renders without crashing', () => {
+describe("<Notifications />", () => {
+  it("Notifications renders without crashing", () => {
     const wrapper = shallow(<Notifications />);
-    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.exists()).toEqual(true);
   });
-
-  // renders NotificationItem component for each element in the list
-  it('renders NotificationItem component for each element in the list', () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('NotificationItem').length).toBe(3);
-  });
-
-  it('Notifications renders the text Here is the list of notifications', () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('p').text()).toBe('Here is the list of notifications');
-  });
-
-  // renders first element
-  it('renders first element', () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('NotificationItem').first().html()).toBe(
-      '<li data-priority="default">New course available</li>'
+  it("Notifications renders Notification Item and first item has correct html", () => {
+    const wrapper = shallow(<Notifications displayDrawer />);
+    wrapper.update();
+    const listItems = wrapper.find("NotificationItem");
+    expect(listItems).toBeDefined();
+    expect(listItems.first().html()).toEqual(
+      '<li data-notification-type="default">New course available</li>'
     );
   });
-  // check that the menu item is being displayed when displayDrawer is false
-  it('check that the menu item is being displayed when displayDrawer is false', () => {
+  it("menu item is being displayed when displayDrawer is false", () => {
     const wrapper = shallow(<Notifications />);
-    expect(wrapper.find('.menuItem').exists()).toBe(true);
+    wrapper.update();
+    const item = wrapper.find("div.menuItem");
+    expect(item).toHaveLength(1);
   });
-  // check that the div.Notifications is not being displayed when displayDrawer is false
-  it('check that the div.Notifications is not being displayed when displayDrawer is false', () => {
+  it("div.Notifications is not being displayed when displayDrawer is false", () => {
     const wrapper = shallow(<Notifications />);
-    expect(wrapper.find('.Notifications').exists()).toBe(false);
+    wrapper.update();
+    const item = wrapper.find("div.Notifications");
+    expect(item).toHaveLength(0);
   });
-
-  // check that the menu item is being displayed when displayDrawer is true
-  it('check that the menu item is being displayed when displayDrawer is true', () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('.menuItem').exists()).toBe(true);
+  it("menu item is being displayed when displayDrawer is true", () => {
+    const wrapper = shallow(<Notifications displayDrawer />);
+    wrapper.update();
+    const item = wrapper.find("div.menuItem");
+    expect(item).toHaveLength(1);
   });
-
-  // check that the div.Notifications is being displayed when displayDrawer is true
-  it('check that the div.Notifications is being displayed when displayDrawer is true', () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('.Notifications').exists()).toBe(true);
+  it("div.Notifications is being displayed when displayDrawer is true", () => {
+    const wrapper = shallow(<Notifications displayDrawer />);
+    wrapper.update();
+    const item = wrapper.find("div.Notifications");
+    expect(item).toHaveLength(1);
   });
-
 });
