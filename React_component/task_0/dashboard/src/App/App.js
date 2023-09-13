@@ -21,6 +21,16 @@ const listNotifications = [
 ];
 
 class App extends Component {
+  static propTypes = {
+    isLoggedIn: PropTypes.bool,
+    logOut: PropTypes.func,
+  };
+
+  static defaultProps = {
+    isLoggedIn: false,
+    logOut: () => {},
+  };
+
   constructor(props) {
     super(props);
     // Initialize state or other logic if needed
@@ -47,17 +57,5 @@ class App extends Component {
     );
   }
 }
-
-// Define the propTypes for the App component
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func, // Added the logOut prop with function type
-};
-
-// Set a default value for the logOut prop
-App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {}, // Default value is an empty function
-};
 
 export default App;
