@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Login from "../Login/Login";
@@ -20,29 +20,38 @@ const listNotifications = [
   { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
 ];
 
-function App({ isLoggedIn }) {
-  return (
-    <>
-      <Notifications listNotifications={listNotifications} />
-      <div className="App">
-        <Header />
-      </div>
-      <div className="App-body">
-        {!isLoggedIn ? <Login /> : <CourseList listCourses={listCourses} />}
-      </div>
-      <div className="App-footer">
-        <Footer />
-      </div>
-    </>
-  );
+class AppClass extends Component {
+  constructor(props) {
+    super(props);
+    // Initialize state if needed
+  }
+
+  render() {
+    const { isLoggedIn } = this.props;
+
+    return (
+      <>
+        <Notifications listNotifications={listNotifications} />
+        <div className="App">
+          <Header />
+        </div>
+        <div className="App-body">
+          {!isLoggedIn ? <Login /> : <CourseList listCourses={listCourses} />}
+        </div>
+        <div className="App-footer">
+          <Footer />
+        </div>
+      </>
+    );
+  }
 }
 
-App.defaultProps = {
+AppClass.defaultProps = {
   isLoggedIn: false,
 };
 
-App.propTypes = {
+AppClass.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
-export default App;
+export default AppClass;
