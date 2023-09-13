@@ -20,13 +20,13 @@ const listNotifications = [
   { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
 ];
 
-class App extends Component {
+class AppClass extends Component {
   constructor(props) {
     super(props);
-    // Initialize state or other logic if needed
+    // Initialize state if needed
   }
 
-  // Add your component's methods and lifecycle methods here
+    // Add your component's methods and lifecycle methods here
 
   render() {
     const { isLoggedIn } = this.props;
@@ -48,16 +48,12 @@ class App extends Component {
   }
 }
 
-// Define the propTypes for the App component
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func, // Added the logOut prop with function type
-};
-
-// Set a default value for the logOut prop
-App.defaultProps = {
+AppClass.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {}, // Default value is an empty function
 };
 
-export default App;
+AppClass.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
+export default AppClass;
