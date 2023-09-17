@@ -1,1 +1,1 @@
-# 0x05. React inline styling
+# React inline styling
