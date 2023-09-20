@@ -47,21 +47,6 @@ describe("<App />", () => {
     expect(wrapper.find("CourseList")).toHaveLength(1);
   });
 
-  // Add a test to veryfy that the default state for displayDrawer is false
-  it("verifies that the default state for displayDrawer is false", () => {
-    const wrapper = shallow(<App />);
-    wrapper.update();
-    expect(wrapper.state().displayDrawer).toEqual(false);
-  });
-
-  // Add a test to veryfy that after calling handleDisplayDrawer, the state of displayDrawer is true
-  it("verifies that after calling handleDisplayDrawer, the state of displayDrawer is true", () => {
-    const wrapper = shallow(<App />);
-    wrapper.update();
-    wrapper.instance().handleDisplayDrawer();
-    expect(wrapper.state().displayDrawer).toEqual(true);
-  });
-
   it("when the keys control and h are pressed the logOut function, passed as a prop, is called and the alert function is called with the string Logging you out", () => {
     const events = {};
     const logout = jest.fn();
@@ -80,5 +65,36 @@ describe("<App />", () => {
     expect(logout).toHaveBeenCalled();
 
     jest.restoreAllMocks();
+  });
+
+  it("Has default state for displayDrawer false", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+  });
+
+  it("displayDrawer changes to true when calling handleDisplayDrawer", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+
+    const instance = wrapper.instance();
+
+    instance.handleDisplayDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(true);
+  });
+
+  it("displayDrawer changes to false when calling handleHideDrawer", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+
+    // const instance = wrapper.instance();
+
+    wrapper.instance().handleDisplayDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(true);
+
+    wrapper.instance().handleHideDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(false);
   });
 });
