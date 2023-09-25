@@ -33,18 +33,18 @@ class App extends Component {
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
-    this.logOout = this.logOut.bind(this);
+    this.logOut = this.logOut.bind(this);
     this.state = { displayDrawer: false, user, logOut: this.logOut };
   }
 
   handleKeyCombination(e) {
     if (e.key === "h" && e.ctrlKey) {
       alert("Logging you out");
-      this.props.logOut();
+      this.state.logOut();
     }
   }
 
-    handleDisplayDrawer() {
+  handleDisplayDrawer() {
     this.setState({ displayDrawer: true });
   }
 
@@ -78,8 +78,8 @@ class App extends Component {
     const {
       user,
       user: { isLoggedIn },
-      logout,
-      displayDrawer
+      logOut,
+      displayDrawer,
     } = this.state;
 
     const value = { user, logOut };
@@ -87,10 +87,10 @@ class App extends Component {
     return (
       <AppContext.Provider value={value}>
         <Notifications
-        listNotifications={listNotifications}
-        displayDrawer={displayDrawer}
-        handleDisplayDrawer={this.handleDisplayDrawer}
-        handleHideDrawer={this.handleHideDrawer}
+          listNotifications={listNotifications}
+          displayDrawer={displayDrawer}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
         />
         <div className={css(styles.container)}>
           <div className={css(styles.app)}>
@@ -99,7 +99,7 @@ class App extends Component {
           <div className={css(styles.appBody)}>
             {!isLoggedIn ? (
               <BodySectionWithMarginBottom title="Log in to continue">
-                <Login />
+                <Login logIn={this.logIn} />
               </BodySectionWithMarginBottom>
             ) : (
               <BodySectionWithMarginBottom title="Course list">

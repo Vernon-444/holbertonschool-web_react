@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
       background: "white",
       height: "110vh",
       width: "100vw",
+      zIndex: 10,
     },
   },
 

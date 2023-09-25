@@ -15,10 +15,10 @@ describe("<Login />", () => {
     const wrapper = shallow(<Login />);
     expect(wrapper.exists()).toEqual(true);
   });
-  it("Verify that the components render 2 input", () => {
+  it("Verify that the components render 3 input", () => {
     const wrapper = shallow(<Login />);
     wrapper.update();
-    expect(wrapper.find("div input")).toHaveLength(2);
+    expect(wrapper.find("div input")).toHaveLength(3);
   });
   it("Verify that the components render 2 label", () => {
     const wrapper = shallow(<Login />);
@@ -40,7 +40,7 @@ describe("<Login />", () => {
     const passwordInput = wrapper.find("#password");
 
     emailInput.simulate("change", {
-      target: { name: "email", value: "goofyGoober@email.com" },
+      target: { name: "email", value: "Larry@email.com" },
     });
 
     let submitInput = wrapper.find("form input[type='submit']");
