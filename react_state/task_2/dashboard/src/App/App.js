@@ -1,14 +1,16 @@
+import React, { Component } from "react";
+import Notifications from "../Notifications/Notifications";
+import Header from "../Header/Header";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import Login from "../Login/Login";
 import CourseList from "../CourseList/CourseList";
 import Footer from "../Footer/Footer";
-import { getLatestNotification } from "../utils/utils";
-import Header from "../Header/Header";
-import Login from "../Login/Login";
-import Notifications from "../Notifications/Notifications";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { getLatestNotification } from "../utils/utils";
 import { StyleSheet, css } from "aphrodite";
+import { user, logOut } from "./AppContext";
+import AppContext from "./AppContext";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -28,21 +30,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleKeyCombination = this.handleKeyCombination.bind(this);
-
-    // Handle Display and Hide Drawer
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
-    this.state = { displayDrawer: false };
-  }
-
-  // create function handleDisplayDrawer that changes the value of the displayDrawer to true
-  handleDisplayDrawer() {
-    this.setState({ displayDrawer: true });
-  }
-
-  // create function handleHideDrawer that changes the value of the displayDrawer to false
-  handleHideDrawer() {
-    this.setState({ displayDrawer: false });
+    this.logIn = this.logIn.bind(this);
+    this.logOout = this.logOut.bind(this);
+    this.state = { displayDrawer: false, user, logOut: this.logOut };
   }
 
   handleKeyCombination(e) {
@@ -50,6 +42,28 @@ class App extends Component {
       alert("Logging you out");
       this.props.logOut();
     }
+  }
+
+    handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
+  }
+
+  logIn(email, password) {
+    this.setState({
+      user: {
+        email,
+        password,
+        isLoggedIn: true,
+      },
+    });
+  }
+
+  logOut() {
+    this.setState({ user });
   }
 
   componentDidMount() {
@@ -61,11 +75,17 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, logOut } = this.props;
-    const { displayDrawer } = this.state;
+    const {
+      user,
+      user: { isLoggedIn },
+      logout,
+      displayDrawer
+    } = this.state;
+
+    const value = { user, logOut };
 
     return (
-      <>
+      <AppContext.Provider value={value}>
         <Notifications
         listNotifications={listNotifications}
         displayDrawer={displayDrawer}
@@ -106,20 +126,14 @@ class App extends Component {
             <Footer />
           </div>
         </div>
-      </>
+      </AppContext.Provider>
     );
   }
 }
 
-App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {},
-};
+App.defaultProps = {};
 
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func,
-};
+App.propTypes = {};
 
 const cssVars = {
   mainColor: "#e01d3f",
