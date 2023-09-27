@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, LOGIN_FAILURE, LOGIN_SUCCESS, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
 
 /**
  * Login - Creates an action that logs the user in
@@ -60,30 +60,3 @@ export const hideNotificationDrawer = () => {
 
 // bound the action creators to dispatch
 export const boundHideNotificationDrawer = () => dispatch(hideNotificationDrawer());
-
-/**
- * loginsuccess - return the action type LOGIN_SUCCESS
- */
-
-export const loginSuccess = () => {
-    return {
-        type: LOGIN_SUCCESS,
-    };
-}
-
-// bound the action creators to dispatch
-export const boundLoginSuccess = () => dispatch(loginSuccess());
-
-
-/**
- * loginFailure - return the action type LOGIN_FAILURE
- */
-
-export const loginFailure = () => {
-    return {
-        type: LOGIN_FAILURE,
-    };
-}
-
-// bound the action creators to dispatch
-export const boundLoginFailure = () => dispatch(loginFailure());

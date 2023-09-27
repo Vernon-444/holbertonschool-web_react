@@ -38,18 +38,4 @@ describe("action creators tests", function () {
         const result = hideNotificationDrawer();
         expect(result).toEqual(expectedReturn);
     });
-
-    // Test loginsuccess action
-    it("loginsuccess", function () {
-        const expectedReturn = { type: LOGIN_SUCCESS };
-        const result = loginsuccess();
-        expect(result).toEqual(expectedReturn);
-    });
-
-    // Test loginfailure action
-    it("loginfailure", function () {
-        const expectedReturn = { type: LOGIN_FAILURE };
-        const result = loginfailure();
-        expect(result).toEqual(expectedReturn);
-    });
 });
