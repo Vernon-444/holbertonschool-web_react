@@ -1,48 +1,41 @@
-// import all of the action types from uiActionTypes.js
-import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from '../actions/uiActionTypes';
+import { Map } from "immutable";
 
-/**
- * --------------------------
- * UI Reducer
- * --------------------------
- */
+import {
+  LOGIN,
+  LOGOUT,
+  DISPLAY_NOTIFICATION_DRAWER,
+  HIDE_NOTIFICATION_DRAWER,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+} from "../actions/uiActionTypes";
 
-// define the init state of the reducer for the ui,
-// should only have 1 bool property called isNotificationDrawerVisible
-// should only have 1 bool property called isUserLoggedIn
-// should have one empty object property called user
-
-const initialState = {
-    isNotificationDrawerVisible: false,
-    isUserLoggedIn: false,
-    user: {},
+export const initialState = {
+  isNotificationDrawerVisible: false,
+  isUserLoggedIn: false,
+  user: {},
 };
 
-// define the reducer for the ui called uiReducer
+const uiReducer = (state = Map(initialState), action) => {
+  switch (action.type) {
+    case DISPLAY_NOTIFICATION_DRAWER:
+      return state.set("isNotificationDrawerVisible", true);
 
-export function uiReducer(state = initialState, action) {
-    switch (action.type) {
-        case LOGIN:
-            return {
-                ...state,
-                isUserLoggedIn: true,
-            };
-        case LOGOUT:
-            return {
-                ...state,
-                isUserLoggedIn: false,
-            };
-        case DISPLAY_NOTIFICATION_DRAWER:
-            return {
-                ...state,
-                isNotificationDrawerVisible: true,
-            };
-        case HIDE_NOTIFICATION_DRAWER:
-            return {
-                ...state,
-                isNotificationDrawerVisible: false,
-            };
-        default:
-            return state;
-    }
-}
+    case HIDE_NOTIFICATION_DRAWER:
+      return state.set("isNotificationDrawerVisible", false);
+
+    case LOGIN_SUCCESS:
+      return state.set("isUserLoggedIn", true);
+
+    case LOGIN_FAILURE:
+      return state.set("isUserLoggedIn", false);
+
+    case LOGOUT:
+      return state.set("isUserLoggedIn", false);
+
+    default:
+      break;
+  }
+  return state;
+};
+
+export default uiReducer;

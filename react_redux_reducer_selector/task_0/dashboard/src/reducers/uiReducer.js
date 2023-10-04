@@ -1,5 +1,6 @@
 // import all of the action types from uiActionTypes.js
 import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from '../actions/uiActionTypes';
+import immutable from 'immutable';
 
 /**
  * --------------------------
@@ -12,37 +13,27 @@ import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } 
 // should only have 1 bool property called isUserLoggedIn
 // should have one empty object property called user
 
-const initialState = {
+const initialState = immutable.Map({
     isNotificationDrawerVisible: false,
     isUserLoggedIn: false,
-    user: {},
-};
+    user: {}
+});
 
-// define the reducer for the ui called uiReducer
+// define the reducer for the ui called uiReducer using set from map
 
-export function uiReducer(state = initialState, action) {
+const uiReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN:
-            return {
-                ...state,
-                isUserLoggedIn: true,
-            };
-        case LOGOUT:
-            return {
-                ...state,
-                isUserLoggedIn: false,
-            };
         case DISPLAY_NOTIFICATION_DRAWER:
-            return {
-                ...state,
-                isNotificationDrawerVisible: true,
-            };
+            return state.set('isNotificationDrawerVisible', true);
         case HIDE_NOTIFICATION_DRAWER:
-            return {
-                ...state,
-                isNotificationDrawerVisible: false,
-            };
+            return state.set('isNotificationDrawerVisible', false);
+        case LOGIN:
+            return state.set('isUserLoggedIn', true);
+        case LOGOUT:
+            return state.set('isUserLoggedIn', false);
         default:
             return state;
     }
 }
+
+export default uiReducer;
